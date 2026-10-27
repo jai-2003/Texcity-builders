@@ -1,0 +1,10 @@
+# Vite cache (this repo also has node_modules/dist/etc. ignored via client/.gitignore)
+.vite/
+
+# Editor/OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+Thumbs.db
+*.log
