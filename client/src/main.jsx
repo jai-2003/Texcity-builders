@@ -1,13 +1,22 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { createRoot, hydrateRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
+import './fonts.css'
 import './index.css'
 import App from './App.jsx'
 
-createRoot(document.getElementById('root')).render(
+const root = document.getElementById('root')
+const app = (
   <StrictMode>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-  </StrictMode>,
+  </StrictMode>
 )
+
+// Pages are pre-rendered to HTML at build time (scripts/prerender.mjs), marked with the route
+// they were rendered for. If this HTML is for the current URL, React attaches to it (hydrate);
+// otherwise (e.g. an unknown URL served the home page's file) it renders from scratch.
+const path = location.pathname.replace(/\/+$/, '') || '/'
+if (root.dataset.route === path) hydrateRoot(root, app)
+else createRoot(root).render(app)

@@ -55,7 +55,6 @@ const Contact = () => {
     <section className="section-padding bg-white" id="contact">
       <div className="container contact-layout">
         <Reveal variant="left" className="contact-info">
-          <span className="badge">Contact</span>
           <h2 className="section-title left-align">Let's Build Your Dream Together</h2>
           <p className="section-lead">Get in touch with our team for project enquiries, site visits, consultations or any other information. We usually respond within one working day.</p>
 

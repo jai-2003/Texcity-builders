@@ -15,9 +15,6 @@ const PackagesHero = ({ stats = [] }) => (
 
     <div className="container pkg-hero-inner">
       <div className="pkg-hero-copy">
-        <span className="badge badge-dark hero-anim" style={{ '--d': '0.05s' }}>
-          Construction Packages · Coimbatore
-        </span>
         <h1 className="hero-anim" style={{ '--d': '0.15s' }}>
           Clear pricing.
           <em>Uncompromised quality.</em>

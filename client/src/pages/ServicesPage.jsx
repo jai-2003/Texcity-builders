@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PageHero from '../components/PageHero';
+import ServicesHero from '../components/ServicesHero';
 import Services from '../components/Services';
 import Reveal from '../components/Reveal';
 import Parallax from '../components/Parallax';
@@ -8,8 +8,7 @@ import Icon from '../components/Icon';
 import Faq from '../components/Faq';
 import CallToAction from '../components/CallToAction';
 import Seo from '../components/Seo';
-import heroHouse from '../assets/hero-house-services.webp';
-import { services, serviceFaqs, stats } from '../data/content';
+import { services, serviceFaqs } from '../data/content';
 
 const ServicesPage = () => (
   <>
@@ -17,18 +16,7 @@ const ServicesPage = () => (
       title="Services — Approvals, Architecture, Structural & Interior Design"
       description="Building approvals, residential and commercial projects, architectural and structural design, equipment services, interior design and layout development in Coimbatore."
     />
-    <PageHero
-      word="Services"
-      title={<>Designing spaces.<em>Building legacies.</em></>}
-      description="Approvals, architectural and structural design, interiors and layout development — one team from concept to completion."
-      ctaLabel="Explore Services"
-      ctaHref="#services"
-      stats={[stats[0], stats[1]]}
-      house={heroHouse}
-      houseAlt="A white Mediterranean-style villa with an arched porch, built by Texcity Builders"
-      houseRatio={0.613}
-      houseScale={1.2}
-    />
+    <ServicesHero />
 
     <Services />
 
@@ -36,7 +24,6 @@ const ServicesPage = () => (
     <section className="section-padding bg-white">
       <div className="container">
         <Reveal className="section-heading center">
-          <span className="badge">In Detail</span>
           <h2 className="section-title">What Each Service Includes</h2>
           <p className="section-lead">Clear scope, realistic timelines and a single point of contact for every service we offer.</p>
         </Reveal>

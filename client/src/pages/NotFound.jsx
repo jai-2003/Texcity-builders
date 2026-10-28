@@ -56,7 +56,6 @@ const NotFound = () => (
     </svg>
 
     <div className="nf-copy">
-      <span className="badge">Page not found</span>
       <h1>This page is still <em>under construction.</em></h1>
       <p className="section-lead">The page you are looking for has moved or was never built. Let's get you back on site.</p>
       <div className="nf-actions">

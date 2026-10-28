@@ -11,7 +11,7 @@ const PackagesPage = () => {
   return (
     <>
       <Seo
-        title="Home Construction Packages & Pricing — Standard, Premium & Ultra Luxury | Texcity Builders"
+        title="Home Construction Packages & Pricing — Standard, Premium & Ultra Luxury"
         description="Transparent home construction packages in Coimbatore starting at ₹2,199/sqft. Standard, Premium, and Ultra Luxury specifications with 2D/3D design, structural engineering, and branded materials."
       />
 

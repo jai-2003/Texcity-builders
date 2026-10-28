@@ -9,7 +9,6 @@ import { about } from '../data/content';
 const Pillars = () => (
   <div className="pillars">
     <Reveal className="pillars-head">
-      <span className="badge">What Drives Us</span>
       <h3>The purpose behind every project</h3>
     </Reveal>
 

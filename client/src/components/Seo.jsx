@@ -4,6 +4,18 @@ import { site } from '../data/content';
 
 const BRAND = 'Texcity Builders';
 
+// Filled while pre-rendering pages at build time (scripts/prerender.mjs reads it and writes
+// the values into each page's <head>), since effects don't run there.
+export const seoServer = { current: null };
+
+const pageMeta = ({ title, description, image, noindex }, pathname) => ({
+  title: title ? `${title} | ${BRAND}` : `${BRAND} | Construction & Real Estate in Coimbatore`,
+  description,
+  url: `${site.url}${pathname === '/' ? '/' : pathname.replace(/\/$/, '')}`,
+  image: image.startsWith('http') ? image : `${site.url}${image}`,
+  noindex,
+});
+
 // Finds the <meta>/<link> matching `selector` in <head> (creating it from `attrs` if missing)
 // and sets one attribute on it.
 const setTag = (tag, selector, attrs, key, value) => {
@@ -25,11 +37,10 @@ const setProperty = (property, content) => setTag('meta', `meta[property="${prop
 // structured data.
 const Seo = ({ title, description, image = site.image, type = 'website', noindex = false, jsonLd }) => {
   const { pathname } = useLocation();
+  if (typeof window === 'undefined') seoServer.current = pageMeta({ title, description, image, noindex }, pathname);
 
   useEffect(() => {
-    const fullTitle = title ? `${title} | ${BRAND}` : `${BRAND} | Construction & Real Estate in Coimbatore`;
-    const url = `${site.url}${pathname === '/' ? '/' : pathname.replace(/\/$/, '')}`;
-    const imageUrl = image.startsWith('http') ? image : `${site.url}${image}`;
+    const { title: fullTitle, url, image: imageUrl } = pageMeta({ title, description, image, noindex }, pathname);
 
     document.title = fullTitle;
     setMeta('description', description);

@@ -15,7 +15,6 @@ const CallToAction = () => (
     </div>
     <div className="container cta-inner">
       <Reveal variant="left" className="cta-copy">
-        <span className="badge badge-dark">Let's Talk</span>
         <h2>{cta.title}</h2>
         <p>{cta.text}</p>
       </Reveal>

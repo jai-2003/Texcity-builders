@@ -25,7 +25,6 @@ const Hero = () => {
 
         {/* .cap elements are shown by lib/heroFrames.js while scroll progress is between data-from and data-to */}
         <div className="hero-content cap on" data-from="0" data-to="0.08">
-          <span className="hero-badge hero-anim" style={{ '--d': '0.1s' }}>Construction &amp; Real Estate · Coimbatore</span>
           <h1 className="hero-title">
             <Words text="Building spaces that" />
             <em><Words text="last for generations" offset={3} /></em>
@@ -37,10 +36,6 @@ const Hero = () => {
             {/* <Link to="/projects" className="btn btn-primary">View Our Projects</Link> */}
             <Link to="/services" className="btn btn-primary">Our Services</Link>
             <Link to="/contact" className="btn btn-outline-light">Book a Consultation</Link>
-          </div>
-          <div className="hero-scroll-cue hero-anim" style={{ '--d': '1.3s' }} aria-hidden="true">
-            <span className="mouse"><i /></span>
-            <span>Scroll to watch a home take shape</span>
           </div>
         </div>
 

@@ -32,13 +32,15 @@ function loadFrame(i) {
     }
     const im = new Image();
     im.decoding = 'async';
-    im.onload = () => {
+    // decode() finishes decoding off the main thread, so drawing the frame later is cheap.
+    // Without it, the first drawImage of each frame decoded it synchronously mid-scroll.
+    const done = () => {
       cache.ready[i] = true;
       if (cache.onReady) cache.onReady(i);
       resolve();
     };
-    im.onerror = () => resolve();
     im.src = frameUrl(i);
+    im.decode().then(done, () => (im.complete && im.naturalWidth ? done() : resolve()));
     cache.imgs[i] = im;
   });
 }
@@ -59,22 +61,20 @@ function runQueue(queue) {
   for (let w = 0; w < CONCURRENCY; w += 1) worker();
 }
 
-// Frame 0 first, then a coarse set (every 2×step-th frame) once the page is idle. The finest
-// pass only starts when the visitor actually scrolls, so people who never scroll the hero
-// don't download it (saves ~5.5 MB on desktop, ~0.9 MB on phones).
+// Only frame 0 loads with the page. Everything else waits for the visitor's first scroll,
+// then arrives coarse-to-fine (every 16th frame first, so scrubbing works almost at once).
+// Loading the frames during page load used to download ~1–5 MB and decode dozens of images
+// while the page was still starting up, slowing it for everyone, including visitors who never
+// scroll the hero.
 function startLoading() {
   if (cache.queued) return;
   cache.queued = true;
-  loadFrame(0).then(() => {
-    const coarse = () => runQueue(loadOrder(cache.step * 2));
-    if ('requestIdleCallback' in window) requestIdleCallback(coarse, { timeout: 1500 });
-    else setTimeout(coarse, 400);
-  });
-  const fine = () => {
-    window.removeEventListener('scroll', fine);
+  loadFrame(0);
+  const rest = () => {
+    window.removeEventListener('scroll', rest);
     runQueue(loadOrder(cache.step));
   };
-  window.addEventListener('scroll', fine, { passive: true });
+  window.addEventListener('scroll', rest, { passive: true });
 }
 
 // Nearest frame that has finished loading (searching backwards first, then forwards).
@@ -151,8 +151,12 @@ export default function initHeroFrames() {
     draw(true);
   };
 
-  // A newly loaded frame may be closer to the current position than the one on screen.
-  cache.onReady = () => draw(false);
+  // A newly loaded frame may be closer to the current position than the one on screen. Batch
+  // these into the next animation frame: frames arrive in bursts of several at a time.
+  let readyFrame = 0;
+  cache.onReady = () => {
+    if (!readyFrame) readyFrame = requestAnimationFrame(() => { readyFrame = 0; draw(false); });
+  };
 
   startLoading();
   size();
@@ -164,6 +168,7 @@ export default function initHeroFrames() {
     window.removeEventListener('scroll', schedule);
     window.removeEventListener('resize', size);
     cancelAnimationFrame(frame);
+    cancelAnimationFrame(readyFrame);
     cache.onReady = null;
   };
 }

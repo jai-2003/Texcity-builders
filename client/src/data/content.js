@@ -17,10 +17,10 @@ export const company = {
   tagline: 'Architecture, Construction & Building Design',
   industry: 'Architecture, Construction, and Building Design',
   experience: '8+ Years',
-  phone: '+91 98765 43210',
-  phoneHref: 'tel:+919876543210',
+  phone: '+91 99620 75075',
+  phoneHref: 'tel:+919962075075',
   // WhatsApp number in international format, digits only (used for wa.me links).
-  whatsapp: '919876543210',
+  whatsapp: '919962075075',
   email: 'info@texcitybuilders.com',
   address: 'Avinashi Road, Peelamedu, Coimbatore, Tamil Nadu 641004',
   mapQuery: 'Avinashi Road, Peelamedu, Coimbatore, Tamil Nadu 641004',

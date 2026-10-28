@@ -12,7 +12,7 @@ const Footer = () => {
       <div className="container footer-grid">
         <Reveal className="footer-brand">
           <div className="footer-logo-wrap">
-            <img src={logo} alt={company.name} width="543" height="132" loading="lazy" decoding="async" />
+            <img src={logo} alt={company.name} width="395" height="96" loading="lazy" decoding="async" />
           </div>
           <p>Premium residential, villa and commercial construction in Coimbatore — planned, approved and built by one trusted team.</p>
         </Reveal>

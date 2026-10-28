@@ -71,7 +71,6 @@ const Packages = ({ showHeader = true, compact = false }) => {
         {showHeader && (
           <div className="section-heading center">
             <Reveal>
-              <span className="badge">Transparent Pricing</span>
               <h2 className="section-title">Home Construction Packages</h2>
               <p className="section-lead">
                 Fixed-rate, all-inclusive construction packages designed for Coimbatore. Compare specifications,
@@ -236,7 +235,6 @@ const Packages = ({ showHeader = true, compact = false }) => {
           <div className="pkg-modal-card" onClick={(e) => e.stopPropagation()}>
             <div className="pkg-modal-header">
               <div className="pkg-modal-header-info">
-                <span className="badge">Detailed Specification Sheet</span>
                 <h2>{modalPkg.name}</h2>
                 <div className="pkg-modal-rate-strip">
                   <strong>{modalPkg.priceDisplay}</strong>

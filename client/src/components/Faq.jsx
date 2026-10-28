@@ -6,7 +6,6 @@ const Faq = ({ items, title = 'Frequently asked questions', lead }) => (
   <section className="section-padding bg-light">
     <div className="container faq-layout">
       <Reveal variant="left" className="faq-intro">
-        <span className="badge">FAQ</span>
         <h2 className="section-title left-align">{title}</h2>
         {lead && <p className="section-lead">{lead}</p>}
       </Reveal>

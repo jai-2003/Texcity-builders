@@ -5,15 +5,20 @@ export const prefersReducedMotion = () =>
 
 const canObserve = () => typeof window !== 'undefined' && 'IntersectionObserver' in window;
 
-// Reports when an element first scrolls into view. Starts out "visible" when
-// IntersectionObserver is unavailable or the visitor prefers reduced motion.
+// Reports when an element first scrolls into view. Becomes "visible" straight away when
+// IntersectionObserver is unavailable or the visitor prefers reduced motion. Always starts
+// false so the pre-rendered HTML and the browser's first render match (hydration).
 export default function useInView(threshold = 0.15) {
   const ref = useRef(null);
-  const [inView, setInView] = useState(() => !canObserve() || prefersReducedMotion());
+  const [inView, setInView] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el || inView) return undefined;
+    if (!canObserve() || prefersReducedMotion()) {
+      setInView(true);
+      return undefined;
+    }
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {

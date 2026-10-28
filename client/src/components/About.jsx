@@ -20,7 +20,6 @@ const About = () => {
       <div className="container">
         <div className="about-layout">
           <Reveal variant="left" className="about-content">
-            <span className="badge">Who We Are</span>
             <h2 className="section-title left-align">{about.title}</h2>
             {about.paragraphs.slice(0, 1).map((text) => (
               <p className="about-text-content" key={text}>{text}</p>

@@ -3,6 +3,7 @@ import Reveal from './Reveal';
 import Icon from './Icon';
 import AnimatedIcon from './AnimatedIcon';
 import useInView, { prefersReducedMotion } from '../hooks/useInView';
+import onFrame from '../lib/frameLoop';
 import { reasons, process } from '../data/content';
 
 const pad = (n) => String(n).padStart(2, '0');
@@ -13,16 +14,22 @@ const pad = (n) => String(n).padStart(2, '0');
 // once the fill reaches its node. Styles: "Process track" block in index.css.
 export const ProcessBlock = () => {
   const ref = useRef(null);
-  const [progress, setProgress] = useState(() => (prefersReducedMotion() ? 1 : 0));
-  const [reached, setReached] = useState(() => (prefersReducedMotion() ? process.length : 0));
+  const pctRef = useRef(null);
+  const [reached, setReached] = useState(0);
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || prefersReducedMotion()) return undefined;
-    let frame = 0;
-
-    const update = () => {
-      frame = 0;
+    if (!el) return undefined;
+    // Reduced motion: show the finished track (set here so the pre-rendered HTML matches).
+    if (prefersReducedMotion()) {
+      el.style.setProperty('--p', '1');
+      if (pctRef.current) pctRef.current.textContent = '100';
+      setReached(process.length);
+      return undefined;
+    }
+    // Measured in the shared scroll loop's read phase (lib/frameLoop.js); React state is set in
+    // the write phase.
+    return onFrame(() => {
       const vh = window.innerHeight;
       const box = el.getBoundingClientRect();
       const vertical = window.matchMedia('(max-width: 900px)').matches;
@@ -30,7 +37,6 @@ export const ProcessBlock = () => {
       // Narrow: fill as the list scrolls past the 60% line, so the edge follows the reader.
       const p = vertical ? (vh * 0.6 - box.top) / box.height : (vh * 0.8 - box.top) / (vh * 0.5);
       const clamped = Math.min(1, Math.max(0, p));
-      setProgress(clamped);
       // A step is reached once the fill's leading edge passes the centre of its node.
       const track = el.querySelector('.ptrack-line').getBoundingClientRect();
       const edge = vertical ? track.top + clamped * track.height : track.left + clamped * track.width;
@@ -39,30 +45,24 @@ export const ProcessBlock = () => {
         const r = node.getBoundingClientRect();
         if ((vertical ? r.top + r.height / 2 : r.left + r.width / 2) <= edge + 1) count += 1;
       });
-      setReached(count);
-    };
-    const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-
-    update();
-    window.addEventListener('scroll', schedule, { passive: true });
-    window.addEventListener('resize', schedule);
-    return () => {
-      window.removeEventListener('scroll', schedule);
-      window.removeEventListener('resize', schedule);
-      cancelAnimationFrame(frame);
-    };
+      return { clamped, count };
+    }, ({ clamped, count }) => {
+      // The fill and "% built" label change every frame, so they are written straight to the
+      // page; React only re-renders when another step is reached.
+      el.style.setProperty('--p', clamped.toFixed(4));
+      if (pctRef.current) pctRef.current.textContent = String(Math.round(clamped * 100));
+      setReached((prev) => (prev === count ? prev : count));
+    });
   }, []);
 
   return (
     <div className="process-block">
       <Reveal as="h3" variant="blur" className="process-title">Our Process</Reveal>
-      <div className="ptrack" ref={ref} style={{ '--p': progress }}>
+      <div className="ptrack" ref={ref} style={{ '--p': 0 }}>
         <div className="ptrack-line" aria-hidden="true">
           <span className="ptrack-fill" />
           <span className="ptrack-marker">
-            <Icon name="hardhat" size={14} /> {Math.round(progress * 100)}% built
+            <Icon name="hardhat" size={14} /> <span ref={pctRef}>0</span>% built
           </span>
         </div>
         <ol className="ptrack-steps">
@@ -107,7 +107,6 @@ const WhyChooseUs = ({ showProcess = true }) => {
     <section className="section-padding bg-navy" id="why-us">
       <div className="container">
         <Reveal className="section-heading center">
-          <span className="badge badge-dark">Why Choose Us</span>
           <h2 className="section-title">Built on Trust, Delivered With Care</h2>
           <p className="section-lead">Every project we take on is backed by clear communication, proven engineering and a commitment to the timeline we promise.</p>
         </Reveal>

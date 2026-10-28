@@ -105,7 +105,6 @@ const ProjectDetail = () => {
           <p className="pd-location"><Icon name="map" size={18} /> {project.location}</p>
         </div>
         <span className="pd-hero-year" aria-hidden="true">{project.year}</span>
-        <a href="#overview" className="pd-hero-cue" aria-label="Scroll to project overview"><Icon name="arrow-right" size={18} /></a>
       </header>
 
       <div className="container">
@@ -125,7 +124,6 @@ const ProjectDetail = () => {
       <section className="section-padding bg-white" id="overview">
         <div className="container pd-overview">
           <Reveal variant="left" className="pd-overview-head">
-            <span className="badge">Project Overview</span>
             <h2 className="section-title left-align">About {project.title}</h2>
           </Reveal>
           <div className="pd-overview-body">
@@ -160,7 +158,6 @@ const ProjectDetail = () => {
       <section className="section-padding bg-navy pd-amenities">
         <div className="container">
           <Reveal className="section-heading center">
-            <span className="badge badge-dark">Amenities &amp; Features</span>
             <h2 className="section-title">Everything Included at {project.title}</h2>
           </Reveal>
           <ul className="pd-amenity-grid">

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import logo from '../assets/logo.webp';
 import Icon from './Icon';
+import onFrame from '../lib/frameLoop';
 import { company, navLinks } from '../data/content';
 
 const Navbar = () => {
@@ -12,24 +13,18 @@ const Navbar = () => {
 
   // The bar is a floating white "island" that tightens up and gains a stronger shadow once
   // the visitor starts scrolling. The thin green line along the top shows how far down the
-  // page the visitor is.
-  useEffect(() => {
-    const onScroll = () => {
-      setScrolled(window.scrollY > 24);
-
+  // page the visitor is. Measured/applied in the shared scroll loop (lib/frameLoop.js) rather
+  // than on every raw scroll event, so its style write never lands between other measurements.
+  useEffect(() => onFrame(
+    () => {
       const max = document.documentElement.scrollHeight - window.innerHeight;
-      if (progressRef.current) {
-        progressRef.current.style.transform = `scaleX(${max > 0 ? Math.min(1, window.scrollY / max) : 0})`;
-      }
-    };
-    onScroll();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', onScroll);
-    };
-  }, [pathname]);
+      return { scrolled: window.scrollY > 24, progress: max > 0 ? Math.min(1, window.scrollY / max) : 0 };
+    },
+    ({ scrolled: next, progress }) => {
+      setScrolled((prev) => (prev === next ? prev : next));
+      if (progressRef.current) progressRef.current.style.transform = `scaleX(${progress.toFixed(4)})`;
+    },
+  ), [pathname]);
 
   // Close the mobile menu whenever the route changes (e.g. browser back/forward).
   const [menuPath, setMenuPath] = useState(pathname);
@@ -45,7 +40,7 @@ const Navbar = () => {
       <div className="scroll-progress" ref={progressRef} aria-hidden="true" />
       <div className="nav-container">
         <Link to="/" className="nav-logo" onClick={close} aria-label="Texcity Builders Home">
-          <img src={logo} alt="Texcity Builders" width="226" height="55" />
+          <img src={logo} alt="Texcity Builders" width="395" height="96" />
         </Link>
 
         <ul id="primary-menu" className={`nav-links${menuOpen ? ' open' : ''}`}>

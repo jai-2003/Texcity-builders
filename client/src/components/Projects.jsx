@@ -23,7 +23,6 @@ const Projects = ({ limit, filters = true, exclude, heading = 'Spaces That Inspi
       <div className="container">
         <div className="projects-header">
           <Reveal variant="left">
-            <span className="badge">Our Projects</span>
             <h2 className="section-title left-align">{heading}</h2>
             <p className="section-lead">{lead || 'Explore our completed and ongoing projects that reflect our commitment to quality, innovation and customer satisfaction.'}</p>
           </Reveal>

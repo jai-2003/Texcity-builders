@@ -46,7 +46,7 @@
         "logo": "https://www.texcitybuilders.com/icon-512.png",
         "image": "https://www.texcitybuilders.com/og-image.jpg",
         "description": "Construction and real estate company in Coimbatore building villas, apartments and commercial projects.",
-        "telephone": "+91 98765 43210",
+        "telephone": "+91 99620 75075",
         "email": "info@texcitybuilders.com",
         "address": {
           "@type": "PostalAddress",
@@ -60,12 +60,31 @@
         "areaServed": "Coimbatore"
       }
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Fonts load without blocking first paint (text shows in the fallback font, then swaps). -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Sans:opsz,wght@9..40,400..700&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&display=swap" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Sans:opsz,wght@9..40,400..700&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&display=swap" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=DM+Sans:opsz,wght@9..40,400..700&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&display=swap" /></noscript>
+    <!-- Start downloading the current page's hero image right away instead of waiting for the
+         page's code to load and discover it (Services and Contact). Files: public/heroes. -->
+    <script>
+      (function () {
+        var path = location.pathname.replace(/\/+$/, '');
+        var phone = matchMedia('(max-width: 760px)').matches;
+        var h = '/heroes/';
+        // Phones: the same fixed file the page's <picture> uses. Larger screens: the same srcset
+        // and sizes as the <img>, so the browser picks exactly the file the page will request.
+        var hero = {
+          '/services': phone ? { href: h + 'services-hero-bg-sm.webp' } : {
+            srcset: h + 'services-hero-bg-sm.webp 800w, ' + h + 'services-hero-bg.webp 1641w', sizes: '100vw' },
+          '/contact': phone ? { href: h + 'contact-banner-mobile.webp' } : {
+            srcset: h + 'contact-banner-md.webp 1240w, ' + h + 'contact-banner.webp 2065w', sizes: '(max-width: 1290px) 100vw, 1290px' },
+        }[path];
+        if (!hero) return;
+        var link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        if (hero.href) link.href = hero.href;
+        else { link.setAttribute('imagesrcset', hero.srcset); link.setAttribute('imagesizes', hero.sizes); }
+        link.setAttribute('fetchpriority', 'high');
+        document.head.appendChild(link);
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

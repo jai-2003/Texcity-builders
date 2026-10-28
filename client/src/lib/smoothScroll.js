@@ -1,4 +1,4 @@
-import Lenis from 'lenis';
+import { driveFromScroller } from './frameLoop';
 
 let lenis = null;
 
@@ -14,14 +14,26 @@ const navOffset = () => parseFloat(getComputedStyle(document.documentElement).sc
 
 // Starts inertial smooth scrolling for the whole site (wheel and keyboard; touch stays native)
 // and routes same-page links (href="#...") through it. Returns a cleanup function.
+// Lenis itself is loaded separately, on desktop only, once the page is idle, so phones never
+// download it and it never competes with the page's first render.
 export function initSmoothScroll() {
   if (lenis || prefersReducedMotion() || isTouchOnly()) return () => {};
 
-  lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 1, smoothWheel: true });
-  let frame = requestAnimationFrame(function raf(time) {
-    lenis.raf(time);
-    frame = requestAnimationFrame(raf);
+  let frame = 0;
+  let cancelled = false;
+  const start = () => import('lenis').then(({ default: Lenis }) => {
+    if (cancelled || lenis) return;
+    lenis = new Lenis({ lerp: 0.09, wheelMultiplier: 1, smoothWheel: true });
+    // Scroll-driven effects update right after Lenis moves the page (see lib/frameLoop.js).
+    lenis.on('scroll', driveFromScroller(true));
+    frame = requestAnimationFrame(function raf(time) {
+      lenis.raf(time);
+      frame = requestAnimationFrame(raf);
+    });
   });
+  const idle = 'requestIdleCallback' in window
+    ? requestIdleCallback(start, { timeout: 3000 })
+    : setTimeout(start, 1500);
 
   const onClick = (event) => {
     const link = event.target.closest && event.target.closest('a[href^="#"]');
@@ -37,10 +49,16 @@ export function initSmoothScroll() {
   document.addEventListener('click', onClick);
 
   return () => {
+    cancelled = true;
+    if ('cancelIdleCallback' in window) cancelIdleCallback(idle);
+    else clearTimeout(idle);
     document.removeEventListener('click', onClick);
     cancelAnimationFrame(frame);
-    lenis.destroy();
-    lenis = null;
+    if (lenis) {
+      lenis.destroy();
+      lenis = null;
+      driveFromScroller(false);
+    }
   };
 }
 

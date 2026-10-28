@@ -19,7 +19,6 @@ const HomeServices = () => {
       <div className="container">
         <div className="home-svc-head">
           <Reveal variant="left">
-            <span className="badge">Our Services</span>
             <h2 className="section-title left-align">
               Complete Real Estate &amp; <em>Construction Solutions</em>
             </h2>

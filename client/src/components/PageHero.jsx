@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Icon from './Icon';
 import { prefersReducedMotion } from '../hooks/useInView';
+import onFrame from '../lib/frameLoop';
 
 // Shared "big word behind the house" hero, used at the top of Services, About, Projects and
 // Contact. A giant word sits behind a cut-out villa; on arrival the house appears first, then
@@ -24,7 +25,7 @@ import { prefersReducedMotion } from '../hooks/useInView';
 //
 // `houseOffsetX`: nudges the house sideways in px from its default position (positive = left,
 // negative = right), per page.
-const PageHero = ({ word, title, description, ctaLabel, ctaHref, stats, house, houseAlt, fullBleed = false, houseRatio, houseScale, houseOffsetX }) => {
+const PageHero = ({ word, title, description, ctaLabel, ctaHref, stats, house, houseSmall, houseAlt, fullBleed = false, houseRatio, houseScale, houseOffsetX }) => {
   const ref = useRef(null);
 
   useEffect(() => {
@@ -35,45 +36,32 @@ const PageHero = ({ word, title, description, ctaLabel, ctaHref, stats, house, h
       house: el.querySelector('.svc-hero-house'),
       copy: el.querySelector('.svc-hero-copy'),
       stats: el.querySelector('.svc-hero-stats'),
-      cue: el.querySelector('.svc-hero-cue'),
     };
-    let frame = 0;
-
     // The word's resting position leaves room for the real navbar height, not a guess — this
-    // keeps letters from rendering under the navbar on short/wide windows.
-    const syncNavHeight = () => {
-      const nav = document.querySelector('nav.navbar');
-      if (nav) el.style.setProperty('--nav-h', `${nav.offsetHeight}px`);
-    };
-
-    const update = () => {
-      frame = 0;
-      const p = Math.min(1, Math.max(0, window.scrollY / el.offsetHeight));
-      const vh = el.offsetHeight / 100;
-      layers.word.style.transform = `translateY(${(-p * 60 * vh).toFixed(1)}px)`;
-      layers.word.style.opacity = (1 - Math.max(0, p - 0.3) * 1.6).toFixed(3);
-      layers.house.style.transform = `translateY(${(-p * 14 * vh).toFixed(1)}px) scale(${(1 + p * 0.06).toFixed(3)})`;
-      layers.copy.style.transform = `translateY(${(-p * 26 * vh).toFixed(1)}px)`;
-      layers.copy.style.opacity = (1 - p * 1.5).toFixed(3);
-      layers.stats.style.transform = `translateY(${(-p * 34 * vh).toFixed(1)}px)`;
-      layers.stats.style.opacity = (1 - p * 1.5).toFixed(3);
-      layers.cue.style.opacity = (1 - p * 4).toFixed(3);
-    };
-    const schedule = () => {
-      if (!frame) frame = requestAnimationFrame(update);
-    };
-
-    syncNavHeight();
-    update();
-    window.addEventListener('scroll', schedule, { passive: true });
-    window.addEventListener('resize', schedule);
-    window.addEventListener('resize', syncNavHeight);
-    return () => {
-      window.removeEventListener('scroll', schedule);
-      window.removeEventListener('resize', schedule);
-      window.removeEventListener('resize', syncNavHeight);
-      cancelAnimationFrame(frame);
-    };
+    // keeps letters from rendering under the navbar on short/wide windows. Measured and applied
+    // in the shared scroll loop (lib/frameLoop.js): read sizes first, then write styles.
+    let navH = -1;
+    return onFrame(
+      () => {
+        const nav = document.querySelector('nav.navbar');
+        const h = el.offsetHeight;
+        return { navH: nav ? nav.offsetHeight : -1, p: Math.min(1, Math.max(0, window.scrollY / h)), vh: h / 100 };
+      },
+      (m) => {
+        if (m.navH !== navH && m.navH >= 0) {
+          navH = m.navH;
+          el.style.setProperty('--nav-h', `${navH}px`);
+        }
+        const { p, vh } = m;
+        layers.word.style.transform = `translateY(${(-p * 60 * vh).toFixed(1)}px)`;
+        layers.word.style.opacity = (1 - Math.max(0, p - 0.3) * 1.6).toFixed(3);
+        layers.house.style.transform = `translateY(${(-p * 14 * vh).toFixed(1)}px) scale(${(1 + p * 0.06).toFixed(3)})`;
+        layers.copy.style.transform = `translateY(${(-p * 26 * vh).toFixed(1)}px)`;
+        layers.copy.style.opacity = (1 - p * 1.5).toFixed(3);
+        layers.stats.style.transform = `translateY(${(-p * 34 * vh).toFixed(1)}px)`;
+        layers.stats.style.opacity = (1 - p * 1.5).toFixed(3);
+      },
+    );
   }, []);
 
   const vars = {};
@@ -96,7 +84,11 @@ const PageHero = ({ word, title, description, ctaLabel, ctaHref, stats, house, h
 
       {/* Layer 2: the villa, in front */}
       <div className="svc-hero-house">
-        <img src={house} alt={houseAlt} className="svc-hero-img" fetchPriority="high" decoding="async" />
+        <picture>
+          {/* `houseSmall`: a lighter version for phones, where the full-size file is wasted bandwidth */}
+          {houseSmall && <source media="(max-width: 760px)" srcSet={houseSmall} />}
+          <img src={house} alt={houseAlt} className="svc-hero-img" fetchPriority="high" decoding="async" />
+        </picture>
       </div>
 
       <div className="svc-hero-fade" aria-hidden="true" />
@@ -115,11 +107,6 @@ const PageHero = ({ word, title, description, ctaLabel, ctaHref, stats, house, h
             </li>
           ))}
         </ul>
-      </div>
-
-      <div className="svc-hero-cue" aria-hidden="true">
-        <span className="mouse"><i /></span>
-        <span>Scroll</span>
       </div>
     </section>
   );

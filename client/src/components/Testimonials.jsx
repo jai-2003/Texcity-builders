@@ -13,7 +13,6 @@ const Testimonials = () => {
     <section className="section-padding bg-light" id="testimonials">
       <div className="container">
         <Reveal className="section-heading center">
-          <span className="badge">Testimonials</span>
           <h2 className="section-title">What Our Clients Say</h2>
         </Reveal>
       </div>
