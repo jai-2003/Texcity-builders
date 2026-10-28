@@ -12,6 +12,7 @@ import { ProcessBlock } from '../components/WhyChooseUs';
 import CallToAction from '../components/CallToAction';
 import heroHouse from '../assets/hero-house-about.webp';
 import heroHouseSmall from '../assets/hero-house-about-sm.webp';
+import buildingExcellenceImg from '../assets/building-excellence.png';
 import { about, stats } from '../data/content';
 
 const AboutPage = () => (
@@ -42,7 +43,7 @@ const AboutPage = () => (
         <div className="about-layout">
           <Reveal variant="left" className="about-image">
             <div className="about-media">
-              <Parallax as="img" speed={0.07} max={36} src={about.story.image} alt="Texcity Builders site team reviewing drawings" className="rounded-img" />
+              <Parallax as="img" speed={0.07} max={36} src={buildingExcellenceImg} alt="Building Legacies Since 2015 - 8+ Years of Building Excellence" className="rounded-img" />
             </div>
             <Parallax speed={-0.1} max={30} className="experience-badge">
               <h3>10+</h3>
