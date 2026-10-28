@@ -3137,11 +3137,190 @@ html.lenis body {
 
   #about .about-media {
     height: auto;
-    aspect-ratio: 4 / 5;
-    max-width: 420px;
+    aspect-ratio: 646 / 697;
+    max-width: 500px;
     margin-left: auto;
+    background: #ffffff;
+    border-radius: 20px;
   }
 }
+
+/* ==========================================================================
+   Architectural Blueprint Self-Drawing & Live Construction Animations
+   ========================================================================== */
+
+.blueprint-canvas-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 646 / 697;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 20px 40px rgba(3, 58, 92, 0.12);
+  cursor: default;
+}
+
+.blueprint-base-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: 20px;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+}
+
+.blueprint-canvas-wrap:hover .blueprint-base-img {
+  transform: scale(1.02);
+}
+
+.blueprint-svg-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Base Stroke Drawing Animations */
+.bp-stroke {
+  transition: stroke-dashoffset 2.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.5s ease;
+}
+
+.blueprint-canvas-wrap:not(.is-drawn) .bp-stroke {
+  opacity: 0.2;
+}
+
+.blueprint-canvas-wrap.is-drawn .bp-stroke {
+  opacity: 1;
+}
+
+/* Individual Drawing Delays for realistic sketching progression */
+.is-drawn .outer-arc {
+  animation: drawCompassArc 2.4s cubic-bezier(0.25, 1, 0.5, 1) forwards, rotateCompassOuter 14s ease-in-out infinite alternate 2.5s;
+}
+
+.is-drawn .middle-arc {
+  animation: drawCompassArc 2s cubic-bezier(0.25, 1, 0.5, 1) 0.3s forwards, rotateCompassInner 11s ease-in-out infinite alternate 2.4s;
+}
+
+.is-drawn .inner-arc {
+  animation: drawCompassArc 1.8s cubic-bezier(0.25, 1, 0.5, 1) 0.6s forwards;
+}
+
+@keyframes drawCompassArc {
+  from {
+    stroke-dashoffset: 900;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes rotateCompassOuter {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(6deg);
+  }
+}
+
+@keyframes rotateCompassInner {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-6deg);
+  }
+}
+
+/* Active Crane Trolley Animation (Travels along horizontal jib) */
+@keyframes craneTrolleyMove {
+  0% {
+    transform: translateX(180px);
+  }
+  45% {
+    transform: translateX(315px);
+  }
+  55% {
+    transform: translateX(315px);
+  }
+  95% {
+    transform: translateX(180px);
+  }
+  100% {
+    transform: translateX(180px);
+  }
+}
+
+.active-working-trolley {
+  animation: craneTrolleyMove 9s ease-in-out infinite;
+}
+
+/* Hoist Cable & Hook Sway / Vertical Motion */
+@keyframes hookHoist {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(22px);
+  }
+  60% {
+    transform: translateY(22px);
+  }
+}
+
+.crane-hook-block {
+  animation: hookHoist 9s ease-in-out infinite;
+}
+
+@keyframes cableSway {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(1.8deg);
+  }
+  75% {
+    transform: rotate(-1.8deg);
+  }
+}
+
+.hoist-cable {
+  animation: cableSway 4.5s ease-in-out infinite;
+  transform-origin: 0 128px;
+}
+
+/* Secondary Crane Hoisting */
+@keyframes secCraneHoist {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-24px);
+  }
+}
+
+.secondary-crane-hoist {
+  animation: secCraneHoist 6s ease-in-out infinite 1.5s;
+}
+
+/* Rotating Wind Turbine Rotor */
+@keyframes rotateTurbine {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.rotating-turbine-rotor {
+  animation: rotateTurbine 4s linear infinite;
+}
+
 
 .project-media img {
   scale: 1.12;
@@ -5681,6 +5860,8 @@ html.lenis body {
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: auto;
+  flex-shrink: 0;
+  width: 100%;
 }
 
 .bento-icon {
@@ -5805,7 +5986,40 @@ html.lenis body {
   color: var(--navy-dark);
 }
 
-/* The big tile gets larger type and the service's tag chips */
+.bento-b.bento-photo .bento-top,
+.bento-c.bento-photo .bento-top,
+.bento-e.bento-photo .bento-top,
+.bento-f.bento-photo .bento-top,
+.bento-g.bento-photo .bento-top {
+  margin-bottom: auto;
+}
+
+.bento-b.bento-photo .bento-content,
+.bento-c.bento-photo .bento-content,
+.bento-e.bento-photo .bento-content,
+.bento-f.bento-photo .bento-content,
+.bento-g.bento-photo .bento-content {
+  margin-top: 0.6rem;
+}
+
+.bento-b.bento-photo .bento-content h3,
+.bento-c.bento-photo .bento-content h3,
+.bento-e.bento-photo .bento-content h3,
+.bento-f.bento-photo .bento-content h3,
+.bento-g.bento-photo .bento-content h3 {
+  font-size: 1.05rem;
+  margin-bottom: 0.3rem;
+}
+
+.bento-b.bento-photo .bento-content p,
+.bento-c.bento-photo .bento-content p,
+.bento-e.bento-photo .bento-content p,
+.bento-f.bento-photo .bento-content p,
+.bento-g.bento-photo .bento-content p {
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
 .bento-a .bento-link {
   padding: 1.8rem;
 }

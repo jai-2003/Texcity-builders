@@ -9,7 +9,7 @@ import { services } from '../data/content';
 // green "view all" tile to finish the grid. Tile placement is set by grid areas a–h in
 // index.css ("Home services"). The full Services page keeps its own layout (Services.jsx).
 const AREAS = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
-const PHOTO_TILES = new Set(['a', 'd']);
+const PHOTO_TILES = new Set(['a', 'b', 'c', 'd', 'e', 'f', 'g']);
 
 const HomeServices = () => {
   const tiles = services.slice(0, AREAS.length);

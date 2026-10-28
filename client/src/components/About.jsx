@@ -4,16 +4,12 @@ import Reveal from './Reveal';
 import Parallax from './Parallax';
 import Icon from './Icon';
 import StatsRow from './StatsRow';
-import useInView from '../hooks/useInView';
 import { about } from '../data/content';
+import whoWeAreImg from '../assets/who-we-are.png';
+import ArchitecturalBlueprint from './ArchitecturalBlueprint';
 
-// Short "who we are" section used on the home page; the full story (and the full copy —
-// this trims the intro paragraph and highlight list to roughly half) lives on /about.
+// Short "who we are" section used on the home page; the full story lives on /about.
 const About = () => {
-  // The walkthrough video only starts downloading once this frame is about to scroll into
-  // view — it's a 15MB file, so visitors who never reach this section never fetch it.
-  const [mediaRef, mediaInView] = useInView(0.2);
-
   return (
     <section className="section-padding about-compact bg-white has-blueprint" id="about">
       <Parallax speed={0.12} className="blueprint" aria-hidden="true" />
@@ -35,21 +31,10 @@ const About = () => {
             </div>
           </Reveal>
           <Reveal variant="right" delay={150} className="about-image">
-            {/* The video drifts slower than the page and the badge faster, for depth. */}
-            <div className="about-media" ref={mediaRef}>
-              <Parallax
-                as="video"
-                speed={0.07}
-                max={36}
-                className="rounded-img"
-                src={mediaInView ? '/about-video.mp4' : undefined}
-                poster="/about-video-poster.webp"
-                autoPlay
-                muted
-                loop
-                playsInline
-                preload="none"
-                aria-label="A walkthrough of a home built by Texcity Builders"
+            <div className="about-media">
+              <ArchitecturalBlueprint
+                imageSrc={whoWeAreImg}
+                alt="Building communities with purpose - Sustainable architecture and engineering by Texcity Builders"
               />
             </div>
             <Parallax speed={-0.1} max={30} className="experience-badge">

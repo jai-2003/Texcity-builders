@@ -1,3 +1,11 @@
+import buildingApprovalsImg from '../assets/building-approvals.jpg';
+import residentialCommercialImg from '../assets/residential-commercial.jpg';
+import architecturalDesignImg from '../assets/architectural-design.jpg';
+import structuralDesignImg from '../assets/structural-design.jpg';
+import equipmentServicesImg from '../assets/equipment-services.jpg';
+import interiorDesignImg from '../assets/interior-design.jpg';
+import layoutDevelopmentImg from '../assets/layout-development.jpg';
+
 // All site copy lives here so it can be edited without touching the layout.
 // The address, stats, milestones, team, project figures and testimonials are sample
 // placeholders — replace them with real company data before going live.
@@ -143,8 +151,8 @@ export const services = [
     icon: 'filecheck',
     desc: 'Building plan approvals, permit assistance and documentation support, handled end to end.',
     points: ['Plan approvals', 'Permit assistance', 'Documentation'],
-    img: img('1454165804606-c3d57bc86b40', 600),
-    cover: img('1521791136064-7986c2920216', 1000),
+    img: buildingApprovalsImg,
+    cover: buildingApprovalsImg,
     duration: '4 – 12 weeks',
     idealFor: 'Owners & developers',
     longDesc: [
@@ -166,8 +174,8 @@ export const services = [
     icon: 'building2',
     desc: 'Planning and design for homes, apartments, offices and commercial buildings.',
     points: ['Homes & apartments', 'Offices', 'Commercial buildings'],
-    img: img('1600596542815-ffad4c1539a9', 600),
-    cover: img('1486406146926-c627a92ad1ab', 1000),
+    img: residentialCommercialImg,
+    cover: residentialCommercialImg,
     duration: 'Varies by project size',
     idealFor: 'Families, businesses & investors',
     longDesc: [
@@ -189,8 +197,8 @@ export const services = [
     icon: 'pencil',
     desc: 'Creative architectural concepts, floor plans, elevations and complete building designs.',
     points: ['Concept design', 'Floor plans', 'Elevations'],
-    img: img('1503387762-592deb58ef4e', 600),
-    cover: img('1580587771525-78b9dba3b914', 1000),
+    img: architecturalDesignImg,
+    cover: architecturalDesignImg,
     duration: '2 – 8 weeks',
     idealFor: 'Plot owners & builders',
     longDesc: [
@@ -212,8 +220,8 @@ export const services = [
     icon: 'hardhat',
     desc: 'Structural planning and engineering design for safe, durable buildings.',
     points: ['Structural planning', 'RCC design', 'Load analysis'],
-    img: img('1504307651254-35680f356dfd', 600),
-    cover: img('1503387762-592deb58ef4e', 1000),
+    img: structuralDesignImg,
+    cover: structuralDesignImg,
     duration: '2 – 6 weeks',
     idealFor: 'Architects & self-builders',
     longDesc: [
@@ -235,8 +243,8 @@ export const services = [
     icon: 'wrench',
     desc: 'Equipment-related construction solutions to keep your project on site and on schedule.',
     points: ['Construction equipment', 'Site support', 'Project-based service'],
-    img: img('1541976590-713941681591', 600),
-    cover: img('1504307651254-35680f356dfd', 1000),
+    img: equipmentServicesImg,
+    cover: equipmentServicesImg,
     duration: 'As per project need',
     idealFor: 'Builders & contractors',
     longDesc: [
@@ -256,8 +264,8 @@ export const services = [
     icon: 'paintbrush',
     desc: 'Modern interior design, space planning, lighting and functional interiors.',
     points: ['Space planning', 'Lighting design', 'Modern interiors'],
-    img: img('1600566753376-12c8ab7fb75b', 600),
-    cover: img('1600607686527-6fb886090705', 1000),
+    img: interiorDesignImg,
+    cover: interiorDesignImg,
     duration: '4 – 12 weeks',
     idealFor: 'Homeowners & offices',
     longDesc: [
@@ -279,8 +287,8 @@ export const services = [
     icon: 'layout',
     desc: 'Land layout planning, plot arrangements and development planning.',
     points: ['Land layouts', 'Plot arrangement', 'Development planning'],
-    img: img('1500382017468-9049fed747ef', 600),
-    cover: img('1500382017468-9049fed747ef', 1000),
+    img: layoutDevelopmentImg,
+    cover: layoutDevelopmentImg,
     duration: '4 – 12 weeks',
     idealFor: 'Landowners & developers',
     longDesc: [
