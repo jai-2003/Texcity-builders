@@ -34,3 +34,35 @@ export default function useInView(threshold = 0.15) {
 
   return [ref, inView];
 }
+
+// Tracks whether an element is on screen right now (unlike useInView, which fires only once),
+// and whether it has ever come within `nearMargin` of the screen. Used to pause autoplay
+// while a section is scrolled away and to start loading its images just before it arrives.
+export function useOnScreen(nearMargin = '600px 0px') {
+  const ref = useRef(null);
+  const [onScreen, setOnScreen] = useState(false);
+  const [near, setNear] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || !canObserve()) {
+      setOnScreen(true);
+      setNear(true);
+      return undefined;
+    }
+    const io = new IntersectionObserver(([entry]) => setOnScreen(entry.isIntersecting));
+    const nearIo = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      setNear(true);
+      nearIo.disconnect();
+    }, { rootMargin: nearMargin });
+    io.observe(el);
+    nearIo.observe(el);
+    return () => {
+      io.disconnect();
+      nearIo.disconnect();
+    };
+  }, [nearMargin]);
+
+  return [ref, onScreen, near];
+}

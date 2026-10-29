@@ -1,16 +1,14 @@
-import buildingApprovalsImg from '../assets/building-approvals.jpg';
-import residentialCommercialImg from '../assets/residential-commercial.jpg';
-import architecturalDesignImg from '../assets/architectural-design.jpg';
-import structuralDesignImg from '../assets/structural-design.jpg';
-import equipmentServicesImg from '../assets/equipment-services.jpg';
-import interiorDesignImg from '../assets/interior-design.jpg';
-import layoutDevelopmentImg from '../assets/layout-development.jpg';
+import buildingApprovalsImg from '../assets/building-approvals.webp';
+import residentialCommercialImg from '../assets/residential-commercial.webp';
+import architecturalDesignImg from '../assets/architectural-design.webp';
+import structuralDesignImg from '../assets/structural-design.webp';
+import equipmentServicesImg from '../assets/equipment-services.webp';
+import interiorDesignImg from '../assets/interior-design.webp';
+import layoutDevelopmentImg from '../assets/layout-development.webp';
 
 // All site copy lives here so it can be edited without touching the layout.
-// The address, stats, milestones, team, project figures and testimonials are sample
+// The address, stats, milestones and testimonials are sample
 // placeholders — replace them with real company data before going live.
-
-const img = (id, w = 800) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
 
 // Public address of the live site, used for canonical links and social-share URLs (see
 // components/Seo.jsx). Change it here, in index.html, public/robots.txt and public/sitemap.xml
@@ -22,22 +20,15 @@ export const site = {
 
 export const company = {
   name: 'Texcity Builders',
-  tagline: 'Architecture, Construction & Building Design',
-  industry: 'Architecture, Construction, and Building Design',
-  experience: '8+ Years',
   phone: '+91 99620 75075',
   phoneHref: 'tel:+919962075075',
   // WhatsApp number in international format, digits only (used for wa.me links).
-  whatsapp: '919962075075',
+  whatsapp: '918973897576',
   email: 'info@texcitybuilders.com',
-  address: 'Avinashi Road, Peelamedu, Coimbatore, Tamil Nadu 641004',
-  mapQuery: 'Avinashi Road, Peelamedu, Coimbatore, Tamil Nadu 641004',
-  hours: 'Mon – Sat: 9:30 AM – 6:30 PM',
+  address: '20, SF.No : 124/4, MRM Residency, Marvel Parambariyam, Saravanampatti, Coimbatore, Tamil Nadu 641035',
   social: [
-    { label: 'Facebook', href: 'https://www.facebook.com/' },
-    { label: 'Instagram', href: 'https://www.instagram.com/' },
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
-    { label: 'YouTube', href: 'https://www.youtube.com/' },
+    { label: 'Facebook', icon: 'facebook', href: 'https://www.facebook.com/texcitybuilders/' },
+    { label: 'Instagram', icon: 'instagram', href: 'https://www.instagram.com/texcitybuilders/' },
   ],
 };
 
@@ -49,7 +40,6 @@ export const navLinks = [
   { to: '/about', label: 'About' },
   { to: '/services', label: 'Services' },
   { to: '/packages', label: 'Packages' },
-  // { to: '/projects', label: 'Projects' },
 ];
 
 // Captions that appear over the hero video as the visitor scrolls (from/to = scroll progress 0–1).
@@ -92,7 +82,6 @@ export const about = {
     'Transparent pricing with no hidden costs',
     'Quality checks at every construction stage',
   ],
-  image: img('1600596542815-ffad4c1539a9'),
   pillars: [
     { title: 'Our Vision', icon: 'sparkles', text: 'To be a trusted real estate and construction company known for quality, innovation and customer satisfaction.' },
     { title: 'Our Mission', icon: 'landmark', text: 'To create sustainable and well-planned spaces that enhance lives and build stronger communities.' },
@@ -107,7 +96,6 @@ export const about = {
   // Full story, told on the About page.
   story: {
     title: '8+ Years of Building Coimbatore',
-    image: img('1521737604893-d14cc237f11d', 1000),
     paragraphs: [
       'Texcity Builders started in 2015 with a single villa project in Saravanampatti and a simple idea: the people who design a building should be the same people who build it.',
       'That idea grew into an in-house team of architects, structural engineers, approval coordinators and site supervisors. Today we deliver villas, apartment communities and commercial buildings across Coimbatore, and we still manage every project ourselves — no outsourced design, no sub-contracted supervision.',
@@ -131,14 +119,6 @@ export const about = {
     { title: 'RERA registered', icon: 'shield', text: 'Every apartment and villa community is registered under Tamil Nadu RERA with public project details.' },
     { title: 'Clear titles', icon: 'scale', text: 'Legal verification and encumbrance certificates shared with every buyer before booking.' },
     { title: '1-year structural warranty', icon: 'award', text: 'A written warranty and a dedicated support line for the first year after handover.' },
-  ],
-
-  // Sample team — replace names, roles and bios.
-  team: [
-    { name: 'Founder Name', role: 'Founder & Managing Director', bio: 'Civil engineer with 15 years in residential construction; leads project strategy and client relationships.' },
-    { name: 'Architect Name', role: 'Principal Architect', bio: 'Designs every villa and apartment layout, from concept sketches to working drawings and 3D views.' },
-    { name: 'Engineer Name', role: 'Head of Structural Engineering', bio: 'Responsible for soil investigation, structural design and stage-wise certification on every site.' },
-    { name: 'Manager Name', role: 'Approvals & Projects Manager', bio: 'Coordinates DTCP, RERA and local body approvals and keeps every site on its promised schedule.' },
   ],
 };
 
@@ -321,174 +301,6 @@ export const process = [
   { title: 'Approvals', icon: 'clipboard', text: 'We obtain all permits and sanctions so construction can begin without delays.' },
   { title: 'Construction', icon: 'hardhat', text: 'Our engineers execute the build with stage-wise quality checks and updates.' },
   { title: 'Handover', icon: 'key', text: 'Final inspection, documentation and keys — your space is ready to use.' },
-];
-
-export const projectFilters = ['All', 'Residential', 'Villas', 'Commercial', 'Ongoing'];
-
-// Sample projects — figures, years and amenities are placeholders.
-export const projects = [
-  {
-    slug: 'greenfield-villas',
-    title: 'Greenfield Villas',
-    location: 'Saravanampatti, Coimbatore',
-    category: 'Villas',
-    status: 'Completed',
-    details: '24 villas · 3 & 4 BHK',
-    year: '2023',
-    area: '2,400 – 3,200 sq. ft. per villa',
-    units: '24 villas',
-    img: img('1512917774080-9991f1c4c750', 600),
-    cover: img('1512917774080-9991f1c4c750', 1400),
-    description: [
-      'Greenfield Villas is a gated community of 24 independent homes on a three-acre site in Saravanampatti, minutes from the IT corridor.',
-      'Each villa has a private garden, a covered car porch and a terrace; the community shares a landscaped park, clubhouse and round-the-clock security.',
-    ],
-    amenities: ['Gated community with security', 'Clubhouse and party hall', 'Landscaped park and walking track', 'Children’s play area', 'Rainwater harvesting', 'Underground power cabling'],
-  },
-  {
-    slug: 'lake-view-residency',
-    title: 'Lake View Residency',
-    location: 'Singanallur, Coimbatore',
-    category: 'Residential',
-    status: 'Completed',
-    details: '96 apartments · 2 & 3 BHK',
-    year: '2022',
-    area: '1,050 – 1,480 sq. ft.',
-    units: '96 apartments',
-    img: img('1600585154340-be6161a56a0c', 600),
-    cover: img('1600585154340-be6161a56a0c', 1400),
-    description: [
-      'Lake View Residency is a 96-unit apartment community overlooking Singanallur lake, planned so every home gets cross-ventilation and a view.',
-      'The project was RERA-registered and handed over on schedule, with a clubhouse, gym and covered parking for every unit.',
-    ],
-    amenities: ['Clubhouse and gym', 'Covered car parking', '24/7 security with CCTV', 'Power backup for common areas', 'Water treatment plant', 'Rooftop garden'],
-  },
-  {
-    slug: 'texcity-enclave',
-    title: 'Texcity Enclave',
-    location: 'Vadavalli, Coimbatore',
-    category: 'Residential',
-    status: 'Ongoing',
-    details: '64 apartments · Ready by 2027',
-    year: '2027',
-    area: '1,120 – 1,650 sq. ft.',
-    units: '64 apartments',
-    img: img('1600607687920-4e2a09cf159d', 600),
-    cover: img('1600607687920-4e2a09cf159d', 1400),
-    description: [
-      'Texcity Enclave brings 64 premium apartments to Vadavalli, close to schools and the Marudhamalai road.',
-      'Structure work is complete and interiors are under way; bookings are open for 2 and 3 BHK homes with handover scheduled for 2027.',
-    ],
-    amenities: ['Swimming pool', 'Gym and yoga deck', 'Multipurpose hall', 'EV charging points', 'Indoor games room', 'Visitor parking'],
-  },
-  {
-    slug: 'urban-heights',
-    title: 'Urban Heights',
-    location: 'Gandhipuram, Coimbatore',
-    category: 'Commercial',
-    status: 'Completed',
-    details: '1.2 lakh sq. ft. office space',
-    year: '2021',
-    area: '1.2 lakh sq. ft.',
-    units: 'G + 6 floors',
-    img: img('1486406146926-c627a92ad1ab', 600),
-    cover: img('1486406146926-c627a92ad1ab', 1400),
-    description: [
-      'Urban Heights is a G+6 office building in the heart of Gandhipuram, built for IT and professional-services tenants.',
-      'Column-free floor plates, high-speed lifts and a glazed facade keep the building efficient to run and presentable for years.',
-    ],
-    amenities: ['Column-free floor plates', 'Three high-speed lifts', 'Basement and stilt parking', 'Fire-fighting and sprinkler systems', '100% power backup', 'Centralised air-conditioning provision'],
-  },
-  {
-    slug: 'business-park',
-    title: 'Business Park',
-    location: 'Avinashi Road, Coimbatore',
-    category: 'Commercial',
-    status: 'Ongoing',
-    details: 'IT and retail spaces · Phase 1',
-    year: '2026',
-    area: '2.4 lakh sq. ft. (Phase 1)',
-    units: 'IT offices and retail',
-    img: img('1497366216548-37526070297c', 600),
-    cover: img('1497366216548-37526070297c', 1400),
-    description: [
-      'Business Park on Avinashi Road combines IT office floors with a ground-level retail promenade, developed in two phases.',
-      'Phase 1 is under construction with the structure complete to the fourth floor; leasing enquiries are open.',
-    ],
-    amenities: ['Retail promenade', 'Food court and cafeteria', 'Multi-level car parking', 'Conference and training rooms', 'Rooftop solar', 'Sewage treatment plant'],
-  },
-  {
-    slug: 'premium-villas',
-    title: 'Premium Villas',
-    location: 'Thudiyalur, Coimbatore',
-    category: 'Villas',
-    status: 'Ongoing',
-    details: '18 villas · 4 BHK',
-    year: '2026',
-    area: '3,600 sq. ft. per villa',
-    units: '18 villas',
-    img: img('1600566753376-12c8ab7fb75b', 600),
-    cover: img('1600566753376-12c8ab7fb75b', 1400),
-    description: [
-      'Premium Villas is a boutique community of 18 four-bedroom homes in Thudiyalur, each on a 2,400 sq. ft. plot.',
-      'Homes feature double-height living rooms, home-office spaces and private terraces; eight villas are already booked.',
-    ],
-    amenities: ['Private terrace garden', 'Home automation ready', 'Solar water heating', 'Gated entry with intercom', 'Community lawn', 'Modular kitchen included'],
-  },
-  {
-    slug: 'riverside-apartments',
-    title: 'Riverside Apartments',
-    location: 'Kuniyamuthur, Coimbatore',
-    category: 'Residential',
-    status: 'Ongoing',
-    details: '48 apartments · 2 & 3 BHK',
-    year: '2027',
-    area: '980 – 1,420 sq. ft.',
-    units: '48 apartments',
-    img: img('1541976590-713941681591', 600),
-    cover: img('1541976590-713941681591', 1400),
-    description: [
-      'Riverside Apartments is a compact 48-home community near the Noyyal river, designed with first-time buyers in mind.',
-      'Foundation work is complete and bookings are open at launch prices, with handover planned for 2027.',
-    ],
-    amenities: ['Rooftop lounge', 'Gym', 'Children’s play area', 'Covered parking', 'Rainwater harvesting', 'Intercom security'],
-  },
-  {
-    slug: 'tech-park-phase-2',
-    title: 'Tech Park Phase 2',
-    location: 'Saravanampatti, Coimbatore',
-    category: 'Commercial',
-    status: 'Completed',
-    details: '80,000 sq. ft. IT offices',
-    year: '2024',
-    area: '80,000 sq. ft.',
-    units: 'G + 4 floors',
-    img: img('1431576901776-e539bd916ba2', 600),
-    cover: img('1431576901776-e539bd916ba2', 1400),
-    description: [
-      'Tech Park Phase 2 adds 80,000 sq. ft. of IT office space to an existing campus in Saravanampatti.',
-      'Delivered in fourteen months, the building was handed over fully leased to two technology tenants.',
-    ],
-    amenities: ['Double-glazed facade', 'Raised flooring and data provisioning', '24/7 power backup', 'Cafeteria', 'Two-wheeler and car parking', 'Access-controlled entry'],
-  },
-  {
-    slug: 'garden-villas',
-    title: 'Garden Villas',
-    location: 'Kovaipudur, Coimbatore',
-    category: 'Villas',
-    status: 'Completed',
-    details: '12 villas · 3 BHK',
-    year: '2020',
-    area: '2,100 sq. ft. per villa',
-    units: '12 villas',
-    img: img('1600047509807-ba8f99d2cdde', 600),
-    cover: img('1600047509807-ba8f99d2cdde', 1400),
-    description: [
-      'Garden Villas is a quiet enclave of twelve three-bedroom homes in Kovaipudur, built around a central garden.',
-      'One of our earliest gated projects, it set the standard for the landscaping and after-sales support we offer today.',
-    ],
-    amenities: ['Central landscaped garden', 'Gated community', 'Rainwater harvesting', 'Borewell and corporation water', 'Street lighting', 'Visitor parking'],
-  },
 ];
 
 // Sample testimonials — replace with real client reviews before going live.

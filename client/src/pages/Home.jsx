@@ -4,8 +4,6 @@ import Marquee from '../components/Marquee';
 import About from '../components/About';
 import HomeServices from '../components/HomeServices';
 import WhyChooseUs from '../components/WhyChooseUs';
-// import Packages from '../components/Packages';
-// import Projects from '../components/Projects';
 import Testimonials from '../components/Testimonials';
 import CallToAction from '../components/CallToAction';
 import Seo from '../components/Seo';
@@ -17,10 +15,7 @@ const Home = () => (
     <Marquee />
     <About />
     <HomeServices />
-    <WhyChooseUs showProcess={false} />
-    {/* Packages section removed from home page */}
-    {/* Projects section temporarily hidden */}
-    {/* <Projects limit={3} filters={false} heading="Featured Projects" lead="A few of the homes and workplaces we have delivered across Coimbatore." /> */}
+    <WhyChooseUs />
     <Testimonials />
     <CallToAction />
   </>

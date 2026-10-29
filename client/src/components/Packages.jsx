@@ -27,14 +27,82 @@ const whatsappLink = (pkg) => {
   return `https://wa.me/${company.whatsapp}?text=${encodeURIComponent(message)}`;
 };
 
-// Rough total for a typical plot, shown under each rate so visitors can picture the budget.
-const EXAMPLE_SQFT = 1500;
-const estimateLakh = (pkg) => {
-  const rate = Number(pkg.priceNumber.replace(/,/g, ''));
-  return `₹${((rate * EXAMPLE_SQFT) / 100000).toFixed(2)} Lakh`;
+// jsPDF's built-in fonts only cover Latin-1, so swap the rupee sign and smart punctuation.
+const pdfText = (s) =>
+  String(s)
+    .replace(/₹\s*/g, 'Rs. ')
+    .replace(/[‘’]/g, "'")
+    .replace(/[“”]/g, '"')
+    .replace(/[–—]/g, '-')
+    .replace(/[•·]/g, '-')
+    .replace(/[^\x20-\xFF\n]/g, '');
+
+// Builds the package specification as a PDF and downloads it straight away.
+const downloadSpecPdf = async (pkg) => {
+  const { jsPDF } = await import('jspdf');
+  const doc = new jsPDF({ unit: 'pt', format: 'a4' });
+  const pageW = doc.internal.pageSize.getWidth();
+  const pageH = doc.internal.pageSize.getHeight();
+  const margin = 48;
+  const width = pageW - margin * 2;
+  const centerX = pageW / 2;
+  const center = { align: 'center' };
+  let y = 0;
+
+  const ensureSpace = (h) => {
+    if (y + h > pageH - margin) {
+      doc.addPage();
+      y = margin;
+    }
+  };
+
+  doc.setFillColor(3, 58, 92);
+  doc.rect(0, 0, pageW, 110, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(22);
+  doc.text(pdfText(pkg.name), centerX, 50, center);
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(12);
+  doc.text(pdfText(`${pkg.priceDisplay} per/sqft  -  ${pkg.tagline}`), centerX, 76, center);
+  doc.setFontSize(10);
+  doc.text(pdfText(company.name), centerX, 95, center);
+  y = 140;
+
+  doc.setTextColor(40, 50, 60);
+  doc.setFontSize(11);
+  const summary = doc.splitTextToSize(pdfText(pkg.summary), width);
+  doc.text(summary, centerX, y, center);
+  y += summary.length * 15 + 16;
+
+  pkg.sections.forEach((sec) => {
+    const excluded = sec.id === 'whats-not-included';
+    ensureSpace(40);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(13);
+    doc.setTextColor(3, 58, 92);
+    doc.text(pdfText(sec.title), centerX, y, center);
+    y += 8;
+    doc.setDrawColor(141, 198, 63);
+    doc.line(margin, y, margin + width, y);
+    y += 16;
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10.5);
+    doc.setTextColor(40, 50, 60);
+    sec.items.forEach((item) => {
+      const lines = doc.splitTextToSize(pdfText(`${excluded ? 'x' : '-'} ${item}`), width);
+      ensureSpace(lines.length * 14 + 4);
+      doc.text(lines, centerX, y, center);
+      y += lines.length * 14 + 4;
+    });
+    y += 14;
+  });
+
+  doc.save(`${pkg.name.replace(/\s+/g, '-')}-Specification.pdf`);
 };
 
-const Packages = ({ showHeader = true, compact = false }) => {
+const Packages = ({ showHeader = true }) => {
   // Store open sections as an object: { `${pkgId}-${sectionId}`: boolean }
   // All collapsed by default: each card's key-spec table already shows the main specs, and
   // equal-height closed cards keep the three prices lined up for comparison.
@@ -116,9 +184,6 @@ const Packages = ({ showHeader = true, compact = false }) => {
                       <strong className="pkg-rate">{pkg.priceNumber}</strong>
                       <span className="pkg-unit">per/sqft</span>
                     </div>
-                    <p className="pkg-estimate">
-                      ≈ <strong>{estimateLakh(pkg)}</strong> for a {EXAMPLE_SQFT.toLocaleString('en-IN')} sqft home
-                    </p>
                   </div>
                 </header>
 
@@ -252,7 +317,7 @@ const Packages = ({ showHeader = true, compact = false }) => {
               </button>
             </div>
 
-            <div className="pkg-modal-body">
+            <div className="pkg-modal-body" data-lenis-prevent>
               <p className="pkg-modal-summary">{modalPkg.summary}</p>
 
               <div className="pkg-modal-spec-grid">
@@ -282,9 +347,9 @@ const Packages = ({ showHeader = true, compact = false }) => {
               <button
                 type="button"
                 className="btn pkg-btn-dark btn-icon"
-                onClick={() => window.print()}
+                onClick={() => downloadSpecPdf(modalPkg)}
               >
-                <Icon name="download" size={16} /> Print / Save PDF
+                <Icon name="download" size={16} /> Download PDF
               </button>
               <a
                 href={whatsappLink(modalPkg)}

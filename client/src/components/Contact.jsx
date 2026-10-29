@@ -47,8 +47,8 @@ const Contact = () => {
   const details = [
     { icon: 'phone', label: 'Call Us', value: <a href={company.phoneHref}>{company.phone}</a> },
     { icon: 'mail', label: 'Email Us', value: <a href={`mailto:${company.email}`}>{company.email}</a> },
-    { icon: 'map', label: 'Visit Our Office', value: company.address },
-    { icon: 'clock', label: 'Office Hours', value: company.hours },
+    // Last and full width: the address is too long for a half-width cell.
+    { icon: 'map', label: 'Visit Our Office', value: company.address, wide: true },
   ];
 
   return (
@@ -60,7 +60,7 @@ const Contact = () => {
 
           <div className="contact-details">
             {details.map((item, i) => (
-              <Reveal variant="up" delay={200 + i * 90} className="contact-item" key={item.label}>
+              <Reveal variant="up" delay={200 + i * 90} className={`contact-item${item.wide ? ' is-wide' : ''}`} key={item.label}>
                 <span className="contact-icon"><Icon name={item.icon} size={20} /></span>
                 <div>
                   <p>{item.label}</p>
@@ -72,7 +72,9 @@ const Contact = () => {
           <div className="social-links mt-4">
             <span>Follow Us:</span>
             {company.social.map((s) => (
-              <a href={s.href} key={s.label}>{s.label}</a>
+              <a href={s.href} key={s.label} className={`social-${s.icon}`} target="_blank" rel="noopener noreferrer" aria-label={`Texcity Builders on ${s.label}`} title={s.label}>
+                <Icon name={s.icon} size={18} />
+              </a>
             ))}
           </div>
         </Reveal>

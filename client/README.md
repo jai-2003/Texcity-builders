@@ -1,16 +1,15 @@
-# React + Vite
+# Texcity Builders website
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+React + Vite site, pre-rendered to static HTML at build time.
 
-Currently, two official plugins are available:
+```sh
+npm install
+npm run dev       # local development server
+npm run build     # production build: client bundle, SSR render, then scripts/prerender.mjs
+npm run preview   # serve the production build from dist/
+npm run lint      # oxlint
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+- Site copy, contact details and services: `src/data/content.js`
+- Pages: `src/pages`, sections: `src/components`, styles: `src/index.css`
+- Scroll-driven hero frames: `public/hero-frames` (loaded by `src/lib/heroFrames.js`)

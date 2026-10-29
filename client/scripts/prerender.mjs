@@ -26,9 +26,18 @@ const lowPriority = (html) => html
   .replace(/<script type="module" crossorigin/g, '<script type="module" fetchpriority="low" crossorigin')
   .replace(/<link rel="modulepreload" crossorigin/g, '<link rel="modulepreload" fetchpriority="low" crossorigin');
 
+// The stylesheet is inlined into each page: a separate <link> blocks the first paint for a
+// whole extra round trip on mobile networks. Its url()s are all root-relative (/fonts/...),
+// so they work unchanged inside <style>. Navigation inside the site never reloads the HTML,
+// so the CSS is still downloaded only once per visit.
+const inlineCss = (html) => html.replace(
+  /<link rel="stylesheet" crossorigin href="\/(assets\/[^"]+\.css)">/,
+  (_, file) => `<style>${fs.readFileSync(path.join(dist, file), 'utf8')}</style>`,
+);
+
 for (const route of routes) {
   const { html: body, seo } = await render(route);
-  let page = lowPriority(template).replace('<div id="root"></div>', `<div id="root" data-route="${route}">${body}</div>`);
+  let page = inlineCss(lowPriority(template)).replace('<div id="root"></div>', `<div id="root" data-route="${route}">${body}</div>`);
 
   if (seo) {
     page = page.replace(/<title>[^<]*<\/title>/, `<title>${esc(seo.title)}</title>`);

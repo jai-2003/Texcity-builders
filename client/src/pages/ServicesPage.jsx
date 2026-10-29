@@ -32,7 +32,8 @@ const ServicesPage = () => (
           <article className="service-detail" id={srv.slug} key={srv.slug}>
             <Reveal variant={i % 2 ? 'right' : 'left'} className="service-detail-media">
               <div className="media-frame">
-                <Parallax as="img" speed={0.07} max={30} src={srv.cover} alt={srv.title} loading="lazy" />
+                {/* max stays under the photo's spare 6% (scale 1.12) even in the short phone frame */}
+                <Parallax as="img" speed={0.07} max={20} src={srv.cover} alt={srv.title} loading="lazy" />
               </div>
             </Reveal>
             <Reveal variant={i % 2 ? 'left' : 'right'} delay={120} className="service-detail-body">

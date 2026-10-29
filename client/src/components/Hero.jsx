@@ -33,7 +33,6 @@ const Hero = () => {
             Premium villas, apartments and commercial projects — planned, approved and built by one trusted team.
           </p>
           <div className="hero-buttons hero-anim" style={{ '--d': '1s' }}>
-            {/* <Link to="/projects" className="btn btn-primary">View Our Projects</Link> */}
             <Link to="/services" className="btn btn-primary">Our Services</Link>
             <Link to="/contact" className="btn btn-outline-light">Book a Consultation</Link>
           </div>

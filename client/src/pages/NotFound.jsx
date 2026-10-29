@@ -6,7 +6,6 @@ import Seo from '../components/Seo';
 const quickLinks = [
   { to: '/services', label: 'Services' },
   { to: '/packages', label: 'Packages' },
-  // { to: '/projects', label: 'Projects' },
   { to: '/about', label: 'About' },
   { to: '/contact', label: 'Contact' },
 ];

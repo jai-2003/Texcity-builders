@@ -9,7 +9,7 @@ const ContactPage = () => (
   <>
     <Seo
       title="Contact Us — Free Site Visit & Consultation"
-      description={`Call ${company.phone}, email ${company.email} or visit our office on Avinashi Road, Coimbatore. Site visits and consultations are free; we reply within one working day.`}
+      description={`Call ${company.phone}, email ${company.email} or visit our office in Saravanampatti, Coimbatore. Site visits and consultations are free; we reply within one working day.`}
     />
     <ContactHero />
 

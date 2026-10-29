@@ -5,10 +5,7 @@ import Footer from './components/Footer';
 import FloatingActions from './components/FloatingActions';
 import ScrollManager from './components/ScrollManager';
 import Home from './pages/Home';
-// import ProjectsPage from './pages/ProjectsPage';
-// import ProjectDetail from './pages/ProjectDetail';
 import { initSmoothScroll } from './lib/smoothScroll';
-import './index.css';
 
 // Inner pages are split into their own chunks so the first visit only downloads the page
 // being viewed. They are prefetched once the browser is idle, so later navigation is instant.
@@ -40,9 +37,6 @@ function App() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/services" element={<ServicesPage />} />
             <Route path="/packages" element={<PackagesPage />} />
-            {/* Projects page hidden */}
-            {/* <Route path="/projects" element={<ProjectsPage />} /> */}
-            {/* <Route path="/projects/:slug" element={<ProjectDetail />} /> */}
             <Route path="/contact" element={<ContactPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

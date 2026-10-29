@@ -2,14 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import Reveal from './Reveal';
 import Icon from './Icon';
 import AnimatedIcon from './AnimatedIcon';
-import useInView, { prefersReducedMotion } from '../hooks/useInView';
+import useInView, { prefersReducedMotion, useOnScreen } from '../hooks/useInView';
 import onFrame from '../lib/frameLoop';
 import { reasons, process } from '../data/content';
 
 const pad = (n) => String(n).padStart(2, '0');
 
-// The five-step process as a build-progress track; used inside WhyChooseUs and on its own on
-// the About page. Scrolling fills the track (horizontal on wide screens, vertical on narrow
+// The five-step process as a build-progress track, shown on the About page under its own
+// section heading. Scrolling fills the track (horizontal on wide screens, vertical on narrow
 // ones) and a "% built" marker rides its leading edge; each step lights up and plays its icon
 // once the fill reaches its node. Styles: "Process track" block in index.css.
 export const ProcessBlock = () => {
@@ -57,7 +57,6 @@ export const ProcessBlock = () => {
 
   return (
     <div className="process-block">
-      <Reveal as="h3" variant="blur" className="process-title">Our Process</Reveal>
       <div className="ptrack" ref={ref} style={{ '--p': 0 }}>
         <div className="ptrack-line" aria-hidden="true">
           <span className="ptrack-fill" />
@@ -89,11 +88,13 @@ const CYCLE_MS = 4500;
 // Reasons showcase: a feature panel shows one reason at a time and auto-advances while the
 // section is on screen; the list beside it selects a reason on hover/click (which pauses the
 // cycle). Styles: "Why Choose Us" block in index.css.
-const WhyChooseUs = ({ showProcess = true }) => {
+const WhyChooseUs = () => {
   const [ref, inView] = useInView(0.3);
+  // inView stays true once revealed; onScreen pauses the cycle while the section is scrolled away.
+  const [sectionRef, onScreen] = useOnScreen();
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
-  const autoplay = inView && !paused && !prefersReducedMotion();
+  const autoplay = inView && onScreen && !paused && !prefersReducedMotion();
 
   useEffect(() => {
     if (!autoplay) return undefined;
@@ -104,7 +105,7 @@ const WhyChooseUs = ({ showProcess = true }) => {
   const current = reasons[active];
 
   return (
-    <section className="section-padding bg-navy" id="why-us">
+    <section className="section-padding bg-navy" id="why-us" ref={sectionRef}>
       <div className="container">
         <Reveal className="section-heading center">
           <h2 className="section-title">Built on Trust, Delivered With Care</h2>
@@ -112,7 +113,7 @@ const WhyChooseUs = ({ showProcess = true }) => {
         </Reveal>
 
         <div
-          className={`why-layout${showProcess ? '' : ' no-process'}${inView ? ' is-visible' : ''}`}
+          className={`why-layout${inView ? ' is-visible' : ''}`}
           ref={ref}
           onMouseLeave={() => setPaused(false)}
         >
@@ -147,8 +148,6 @@ const WhyChooseUs = ({ showProcess = true }) => {
             ))}
           </ol>
         </div>
-
-        {showProcess && <ProcessBlock />}
       </div>
     </section>
   );

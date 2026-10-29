@@ -5,7 +5,7 @@ import Parallax from './Parallax';
 import Icon from './Icon';
 import StatsRow from './StatsRow';
 import { about } from '../data/content';
-import whoWeAreImg from '../assets/who-we-are.png';
+import whoWeAreImg from '../assets/who-we-are.webp';
 import ArchitecturalBlueprint from './ArchitecturalBlueprint';
 
 // Short "who we are" section used on the home page; the full story lives on /about.

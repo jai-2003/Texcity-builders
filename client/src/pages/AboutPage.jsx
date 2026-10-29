@@ -12,7 +12,7 @@ import { ProcessBlock } from '../components/WhyChooseUs';
 import CallToAction from '../components/CallToAction';
 import heroHouse from '../assets/hero-house-about.webp';
 import heroHouseSmall from '../assets/hero-house-about-sm.webp';
-import buildingExcellenceImg from '../assets/building-excellence.png';
+import buildingExcellenceImg from '../assets/building-excellence.webp';
 import { about, stats } from '../data/content';
 
 const AboutPage = () => (
