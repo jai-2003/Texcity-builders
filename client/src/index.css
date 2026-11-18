@@ -1844,6 +1844,14 @@ textarea {
   margin-bottom: 1.75rem;
 }
 
+/* Small hint under the Send button: the enquiry goes out through WhatsApp. */
+.form-note {
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  text-align: center;
+}
+
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;

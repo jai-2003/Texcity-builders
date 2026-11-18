@@ -23,7 +23,7 @@ export const company = {
   phone: '+91 99620 75075',
   phoneHref: 'tel:+919962075075',
   // WhatsApp number in international format, digits only (used for wa.me links).
-  whatsapp: '918973897576',
+  whatsapp: '919962075075',
   email: 'info@texcitybuilders.com',
   address: '20, SF.No : 124/4, MRM Residency, Marvel Parambariyam, Saravanampatti, Coimbatore, Tamil Nadu 641035',
   social: [

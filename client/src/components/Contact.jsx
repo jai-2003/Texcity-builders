@@ -29,19 +29,26 @@ const Contact = () => {
 
   const update = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  // No backend yet: open the visitor's email app with the enquiry filled in.
+  // No backend yet: send the enquiry to the company's WhatsApp with every field filled in.
+  // (A mailto: link did nothing for visitors without an email app set up.)
   const submit = (e) => {
     e.preventDefault();
-    const subject = `Enquiry: ${form.interest || 'General'} — ${form.name}`;
-    const body = [
+    const text = [
+      `Hi ${company.name}, I'd like to make an enquiry.`,
+      '',
       `Name: ${form.name}`,
       `Email: ${form.email}`,
-      `Phone: ${form.phone}`,
+      form.phone ? `Phone: ${form.phone}` : null,
       `Interested in: ${form.interest || 'Not specified'}`,
       '',
       form.message,
-    ].join('\n');
-    window.location.href = `mailto:${company.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    ].filter((line) => line !== null).join('\n');
+    const url = `https://wa.me/${company.whatsapp}?text=${encodeURIComponent(text)}`;
+    // New tab; if a popup blocker stops it, open in the same tab instead.
+    // ('noopener' is not passed as a feature because it makes window.open return null.)
+    const win = window.open(url, '_blank');
+    if (win) win.opener = null;
+    else window.location.href = url;
   };
 
   const details = [
@@ -114,6 +121,7 @@ const Contact = () => {
             <button type="submit" className="btn btn-primary btn-icon w-100">
               Send Message <Icon name="send" size={18} />
             </button>
+            <p className="form-note">Your message opens in WhatsApp, ready to send to our team.</p>
           </form>
         </Reveal>
       </div>
