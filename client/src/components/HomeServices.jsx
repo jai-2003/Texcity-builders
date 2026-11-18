@@ -43,7 +43,7 @@ const HomeServices = () => {
                 key={srv.slug}
               >
                 <Link to={`/services#${srv.slug}`} className="bento-link">
-                  {photo && <img src={srv.img} alt="" className="bento-img" loading="lazy" decoding="async" />}
+                  {photo && <img src={srv.img} alt="" className="bento-img" style={srv.focus && { objectPosition: srv.focus }} loading="lazy" decoding="async" />}
                   <div className="bento-top">
                     <span className="bento-icon">
                       <Icon name={srv.icon} size={photo ? 22 : 20} />

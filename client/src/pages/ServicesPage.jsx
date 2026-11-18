@@ -33,7 +33,7 @@ const ServicesPage = () => (
             <Reveal variant={i % 2 ? 'right' : 'left'} className="service-detail-media">
               <div className="media-frame">
                 {/* max stays under the photo's spare 6% (scale 1.12) even in the short phone frame */}
-                <Parallax as="img" speed={0.07} max={20} src={srv.cover} alt={srv.title} loading="lazy" />
+                <Parallax as="img" speed={0.07} max={20} src={srv.cover} alt={srv.title} style={srv.focus && { objectPosition: srv.focus }} loading="lazy" />
               </div>
             </Reveal>
             <Reveal variant={i % 2 ? 'left' : 'right'} delay={120} className="service-detail-body">
@@ -42,15 +42,19 @@ const ServicesPage = () => (
               {srv.longDesc.map((text) => (
                 <p key={text}>{text}</p>
               ))}
-              <div className="service-meta">
-                <span><Icon name="clock" size={16} /> {srv.duration}</span>
-                <span><Icon name="users" size={16} /> {srv.idealFor}</span>
-              </div>
               <h3>What's included</h3>
               <ul className="includes-list">
-                {srv.includes.map((item) => (
+                {srv.includes.map((item) => (typeof item === 'string' ? (
                   <li key={item}><Icon name="shield" size={18} /> {item}</li>
-                ))}
+                ) : (
+                  <li key={item.text} className="is-highlight">
+                    <Icon name="shield" size={18} />
+                    <span>
+                      <strong>{item.text}</strong>
+                      <span className="includes-summary">{item.summary}</span>
+                    </span>
+                  </li>
+                )))}
               </ul>
               <Link to="/contact" className="btn btn-primary btn-icon">Enquire About {srv.title} <Icon name="arrow-right" size={18} /></Link>
             </Reveal>

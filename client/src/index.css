@@ -3502,6 +3502,11 @@ html.lenis body {
   gap: 1.25rem;
 }
 
+/* An odd card out spans the row, so the grid ends evenly */
+.assurance-grid > :last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
 /* Certificate card: dashed inner frame like a printed document */
 .cert {
   position: relative;
@@ -3701,25 +3706,6 @@ html.lenis body {
   margin-bottom: 1rem;
 }
 
-.service-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin: 1.25rem 0;
-}
-
-.service-meta span {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.45rem 0.95rem;
-  border-radius: 20px;
-  background: var(--light-bg);
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--navy);
-}
-
 .service-detail-body h3 {
   font-size: 1.1rem;
   color: var(--navy);
@@ -3745,6 +3731,29 @@ html.lenis body {
   flex-shrink: 0;
   margin-top: 0.15rem;
   color: var(--accent-dark);
+}
+
+/* Highlighted item: full-width green-tinted card with a short summary under the title */
+.includes-list li.is-highlight {
+  grid-column: 1 / -1;
+  padding: 0.9rem 1rem;
+  border-radius: 14px;
+  background: var(--accent-soft);
+  border-left: 3px solid var(--accent);
+}
+
+.includes-list li.is-highlight strong {
+  display: block;
+  color: var(--navy-dark);
+  font-weight: 700;
+}
+
+.includes-summary {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--text-light);
 }
 
 /* Project detail: cinematic hero, spec strip, scroll-lit overview, widening showcase photo,
@@ -4778,21 +4787,6 @@ html.lenis body {
 
 .svc-points svg {
   color: var(--accent);
-}
-
-.svc-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem 1rem;
-  margin-bottom: 1.2rem;
-  font-size: 0.78rem;
-  color: rgba(255, 255, 255, 0.65);
-}
-
-.svc-meta span {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
 }
 
 .svc-actions {

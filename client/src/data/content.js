@@ -1,10 +1,10 @@
-import buildingApprovalsImg from '../assets/building-approvals.webp';
+import buildingApprovalsImg from '../assets/building-approvals-handshake.webp';
 import residentialCommercialImg from '../assets/residential-commercial.webp';
 import architecturalDesignImg from '../assets/architectural-design.webp';
 import structuralDesignImg from '../assets/structural-design.webp';
 import equipmentServicesImg from '../assets/equipment-services.webp';
-import interiorDesignImg from '../assets/interior-design.webp';
-import layoutDevelopmentImg from '../assets/layout-development.webp';
+import interiorDesignImg from '../assets/interior-design-living-suite.webp';
+import layoutDevelopmentImg from '../assets/layout-development-plan.webp';
 
 // All site copy lives here so it can be edited without touching the layout.
 // The address, stats, milestones and testimonials are sample
@@ -54,17 +54,16 @@ export const heroStages = [
 // Sample figures.
 export const stats = [
   { value: '8+', label: 'Years of experience' },
-  { value: '120+', label: 'Projects delivered' },
+  { value: '50+', label: 'Projects delivered' },
   { value: '850+', label: 'Happy families' },
-  { value: '2.5M', label: 'Sq. ft. constructed' },
+  { value: '2M', label: 'Sq. ft. constructed' },
 ];
 
 // Credentials strip that scrolls under the hero video.
 export const marqueeItems = [
-  'DTCP approved layouts',
   'RERA registered projects',
   '8+ years in Coimbatore',
-  '120+ projects delivered',
+  '50+ projects delivered',
   'In-house architects & engineers',
   'Fixed-price contracts',
   '1-year structural warranty',
@@ -77,7 +76,7 @@ export const about = {
     'Founded in Coimbatore, our team of architects, structural engineers and site supervisors manages every project in-house — from land evaluation and design to approvals, construction and handover. That single point of responsibility is how we keep quality high and timelines honest.',
   ],
   highlights: [
-    'DTCP and RERA approved projects',
+    'RERA approved projects',
     'In-house architects and structural engineers',
     'Transparent pricing with no hidden costs',
     'Quality checks at every construction stage',
@@ -111,11 +110,10 @@ export const about = {
     { year: '2021', title: 'Into commercial construction', text: 'Urban Heights, a G+6 office building in Gandhipuram, is delivered to IT and professional tenants.' },
     { year: '2022', title: 'First apartment community', text: 'Lake View Residency — 96 RERA-registered homes in Singanallur, handed over on schedule.' },
     { year: '2024', title: 'The 100th project', text: 'Tech Park Phase 2 is delivered fully leased, and the hundredth project is handed over to its owners.' },
-    { year: 'Today', title: 'Building what comes next', text: '850+ families housed, 2.5 million sq. ft. built, and new communities under way in Vadavalli and Thudiyalur.' },
+    { year: 'Today', title: 'Building what comes next', text: '850+ families housed, 2 million sq. ft. built, and new communities under way in Vadavalli and Thudiyalur.' },
   ],
 
   approvals: [
-    { title: 'DTCP & CMDA approved', icon: 'clipboard', text: 'Layouts and building plans sanctioned by the competent planning authority before work begins.' },
     { title: 'RERA registered', icon: 'shield', text: 'Every apartment and villa community is registered under Tamil Nadu RERA with public project details.' },
     { title: 'Clear titles', icon: 'scale', text: 'Legal verification and encumbrance certificates shared with every buyer before booking.' },
     { title: '1-year structural warranty', icon: 'award', text: 'A written warranty and a dedicated support line for the first year after handover.' },
@@ -133,15 +131,20 @@ export const services = [
     points: ['Plan approvals', 'Permit assistance', 'Documentation'],
     img: buildingApprovalsImg,
     cover: buildingApprovalsImg,
-    duration: '4 – 12 weeks',
-    idealFor: 'Owners & developers',
     longDesc: [
       'Approvals are where most projects lose time. We prepare building plans in the formats each authority expects, submit them through the right channels and follow up until the sanction is in your hands.',
       'From a single-plot building permit to approvals for a larger development, you get one coordinator, clear timelines and copies of every document filed.',
     ],
     includes: [
+      {
+        text: 'One-day approval',
+        summary: 'For land up to 2,500 sq. ft. and a building area up to 3,500 sq. ft., we get your building plan approved in just one day.',
+      },
+      'Residential building approvals',
+      'Commercial building approvals',
+      'Industrial building approvals',
+      'DTCP approvals',
       'Building plan approval from local bodies',
-      'DTCP and CMDA approvals',
       'Permit applications and follow-up',
       'Drawings prepared to authority formats',
       'Documentation and legal paperwork support',
@@ -156,8 +159,6 @@ export const services = [
     points: ['Homes & apartments', 'Offices', 'Commercial buildings'],
     img: residentialCommercialImg,
     cover: residentialCommercialImg,
-    duration: 'Varies by project size',
-    idealFor: 'Families, businesses & investors',
     longDesc: [
       'Whether it is an independent house, an apartment block, an office or a commercial building, we plan each project around how it will be used — comfortable homes for families, efficient spaces for businesses.',
       'Our team brings planning, design, structure and approvals together, so residential and commercial projects move from idea to approved drawings without hand-offs between firms.',
@@ -179,8 +180,6 @@ export const services = [
     points: ['Concept design', 'Floor plans', 'Elevations'],
     img: architecturalDesignImg,
     cover: architecturalDesignImg,
-    duration: '2 – 8 weeks',
-    idealFor: 'Plot owners & builders',
     longDesc: [
       'Good buildings start with good design. Our architects develop concepts around your plot, budget and lifestyle, then turn them into floor plans and elevations you can see and refine before anything is built.',
       'Every design is planned for natural light, ventilation and the local climate, with Vastu considerations included where you need them.',
@@ -202,14 +201,16 @@ export const services = [
     points: ['Structural planning', 'RCC design', 'Load analysis'],
     img: structuralDesignImg,
     cover: structuralDesignImg,
-    duration: '2 – 6 weeks',
-    idealFor: 'Architects & self-builders',
     longDesc: [
       'A building is only as good as the structure behind it. Our engineers plan and design structures that are safe, durable and economical, for our own projects and for owners or architects who need an independent structural engineer.',
       'We model the structure for the loads it will carry and produce clear structural drawings that contractors on site can follow without guesswork.',
     ],
     includes: [
-      'Structural planning and framing',
+      // An object instead of a plain string shows as a highlighted item with a short summary.
+      {
+        text: 'Structural planning and framing',
+        summary: 'We lay out the columns, beams and slabs early, so the frame suits your floor plan, soil conditions and budget before any drawings reach site.',
+      },
       'Foundation design',
       'RCC and steel structural design',
       'Load and stability analysis',
@@ -225,8 +226,6 @@ export const services = [
     points: ['Construction equipment', 'Site support', 'Project-based service'],
     img: equipmentServicesImg,
     cover: equipmentServicesImg,
-    duration: 'As per project need',
-    idealFor: 'Builders & contractors',
     longDesc: [
       'We provide equipment-related construction solutions to support building work on site.',
       'Contact us with your project requirements and we will confirm what we can provide and how it fits your schedule.',
@@ -246,8 +245,8 @@ export const services = [
     points: ['Space planning', 'Lighting design', 'Modern interiors'],
     img: interiorDesignImg,
     cover: interiorDesignImg,
-    duration: '4 – 12 weeks',
-    idealFor: 'Homeowners & offices',
+    // Tall collage: anchor crops to the top so the living-room shot fills wide frames.
+    focus: 'center top',
     longDesc: [
       'Our interiors are designed to look good and work well every day. We plan the space around how you live or work, then bring it together with materials, lighting and furniture that suit it.',
       'Interiors are designed in 3D before work begins, so you approve the layout, finishes and lighting with no surprises later.',
@@ -269,8 +268,6 @@ export const services = [
     points: ['Land layouts', 'Plot arrangement', 'Development planning'],
     img: layoutDevelopmentImg,
     cover: layoutDevelopmentImg,
-    duration: '4 – 12 weeks',
-    idealFor: 'Landowners & developers',
     longDesc: [
       'We help landowners and developers make the most of their land. Our layouts arrange plots, roads and open spaces efficiently while meeting the planning rules that apply to the site.',
       'From the first site survey to a layout ready for approval, we plan developments that are practical to build and easy to sell.',

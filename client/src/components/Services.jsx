@@ -101,7 +101,7 @@ const Services = ({ limit }) => {
                 aria-hidden={!active}
                 onClick={active ? undefined : () => setIndex(k)}
               >
-                {near && <img className="svc-photo" src={srv.cover} alt="" loading="lazy" decoding="async" />}
+                {near && <img className="svc-photo" src={srv.cover} alt="" style={srv.focus && { objectPosition: srv.focus }} loading="lazy" decoding="async" />}
 
                 <div className="svc-top">
                   <span className="svc-icon"><Icon name={srv.icon} size={22} /></span>
@@ -116,10 +116,6 @@ const Services = ({ limit }) => {
                       <li key={point}><Icon name="check" size={14} strokeWidth={2.6} /> {point}</li>
                     ))}
                   </ul>
-                  <div className="svc-meta">
-                    <span><Icon name="clock" size={14} /> {srv.duration}</span>
-                    <span><Icon name="users" size={14} /> {srv.idealFor}</span>
-                  </div>
                   <div className="svc-actions">
                     <a href={`#${srv.slug}`} className="svc-more">
                       See what&apos;s included <Icon name="arrow-right" size={15} />

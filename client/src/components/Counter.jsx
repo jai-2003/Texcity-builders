@@ -3,7 +3,7 @@ import useInView, { prefersReducedMotion } from '../hooks/useInView';
 
 const parse = (value) => String(value).match(/^([^\d]*)([\d.]+)(.*)$/);
 
-// Counts up to a figure such as "120+" or "2.5M" the first time it scrolls into view.
+// Counts up to a figure such as "50+" or "2M" the first time it scrolls into view.
 const Counter = ({ value, duration = 1600 }) => {
   const [ref, inView] = useInView(0.5);
   // Always starts at zero so the pre-rendered HTML matches the first render (hydration);
